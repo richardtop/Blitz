@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Blitz_Example' do
+  pod 'Blitz', :path => '../'
+
+  target 'Blitz_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
