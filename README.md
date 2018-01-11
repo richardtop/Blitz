@@ -21,7 +21,7 @@ Later, together with [@mattisssa](https://github.com/mattisssa) we used similar 
 
 This is the next iteration of the same concept, written purely in Swift.
 
-###Name
+### Name
 *Blitz* means "lightning" in German, which encompasses the purpose of the framework - to help developers create responsive interfaces and rapidly iterate on them.
 
 ## Installation
