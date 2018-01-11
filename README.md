@@ -1,6 +1,6 @@
 # Blitz
 
-[![CI Status](http://img.shields.io/travis/Richard Topchii/Blitz.svg?style=flat)](https://travis-ci.org/Richard Topchii/Blitz)
+[![CI Status](http://img.shields.io/travis/richardtop/Blitz.svg?style=flat)](https://travis-ci.org/richardtop/Blitz)
 [![Version](https://img.shields.io/cocoapods/v/Blitz.svg?style=flat)](http://cocoapods.org/pods/Blitz)
 [![License](https://img.shields.io/cocoapods/l/Blitz.svg?style=flat)](http://cocoapods.org/pods/Blitz)
 [![Platform](https://img.shields.io/cocoapods/p/Blitz.svg?style=flat)](http://cocoapods.org/pods/Blitz)
