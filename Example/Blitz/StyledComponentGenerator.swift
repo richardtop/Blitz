@@ -4,7 +4,7 @@ import Blitz
 open class CoolComponent: ComponentBase {
   
   var component: Component!
-  var color = UIColor.lightGray
+  var color = UIColor.white
 
   var expanded = false
 
@@ -36,7 +36,7 @@ open class CoolComponent: ComponentBase {
                                 addComponent: { (add) in
                                   if self.expanded {
                                     for i in 0...2 {
-                                      add(TextComponent(text: NSAttributedString(string: "Expanded Part of the text", style: textStyles.headingAccent)))
+                                      add(TextComponent(text: "Expanded Part of the text", style: textStyles.headingAccent))
                                     }
                                   }
       })
@@ -46,13 +46,13 @@ open class CoolComponent: ComponentBase {
                                verticalAlignment: .top,
                                interItemSpace: 5,
                                components: [
-                                TextComponent(text: NSAttributedString(string: "Title", style: textStyles.title)),
-                                TextComponent(text: NSAttributedString(string: "Subtitle", style: textStyles.subtitle)),
-                                TextComponent(text: NSAttributedString(string: "Heading1", style: textStyles.heading1)),
-                                TextComponent(text: NSAttributedString(string: "Heading2", style: textStyles.heading2)),
-                                TextComponent(text: NSAttributedString(string: "Heading3", style: textStyles.heading3)),
-                                TextComponent(text: NSAttributedString(string: "HeadingAccent", style: textStyles.headingAccent)),
-                                TextComponent(text: NSAttributedString(string: "Body", style: textStyles.body)),
+                                TextComponent(text: "Title", style: textStyles.title),
+                                TextComponent(text: "Subtitle", style: textStyles.subtitle),
+                                TextComponent(text: "Heading1", style: textStyles.heading1),
+                                TextComponent(text: "Heading2", style: textStyles.heading2),
+                                TextComponent(text: "Heading3", style: textStyles.heading3),
+                                TextComponent(text: "HeadingAccent", style: textStyles.headingAccent),
+                                TextComponent(text: "Body", style: textStyles.body),
                                 list2,
                                 ])
       
@@ -61,6 +61,14 @@ open class CoolComponent: ComponentBase {
 
       let background = BackgroundComponent(component: listInset) { (backgroundView) in
         backgroundView.backgroundColor = self.color
+
+        let shadowPath = UIBezierPath(rect: backgroundView.bounds)
+        backgroundView.layer.masksToBounds = false
+        backgroundView.layer.shadowColor = UIColor.black.cgColor
+        backgroundView.layer.shadowOffset = CGSize(width: 0, height: 0.5)
+        backgroundView.layer.shadowOpacity = 0.2
+        backgroundView.layer.shadowPath = shadowPath.cgPath
+        backgroundView.layer.cornerRadius = 10
       }
 
       let inset = InsetComponent(insets: UIEdgeInsets(top: 20, left: 5, bottom: 20, right: 5),
