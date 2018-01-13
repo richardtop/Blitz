@@ -11,7 +11,9 @@ public struct Node {
   var subnodes: [Subnode]
   var size: CGSize
   var zIndex: Int = 0
-  var translatesIntoView = false
+  var translatesIntoView: Bool {
+    return viewType != nil
+  }
   var viewType: NodeUpdatable.Type?
 
   init(subnodes: [Subnode] = [], size: CGSize = .zero) {

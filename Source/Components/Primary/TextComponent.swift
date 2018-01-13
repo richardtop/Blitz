@@ -11,7 +11,6 @@ public class TextComponent: ComponentBase {
     var node = Node()
     node.state = text
     node.component = self
-    node.translatesIntoView = true
     node.viewType = TextCell.self
     
     let maxWidth = context.sizeRange.max.width

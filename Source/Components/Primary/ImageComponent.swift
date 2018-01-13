@@ -11,7 +11,6 @@ class ImageComponent: ComponentBase {
     var node = Node()
     node.state = image
     node.component = self
-    node.translatesIntoView = true
     node.viewType = ImageCell.self
     
     let imageSize = image?.size ?? .zero

@@ -41,7 +41,8 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
   func registerCells() {
     collectionView.registerClasses([ImageCell.self,
                                     ViewCell.self,
-                                    TextCell.self])
+                                    TextCell.self,
+                                    CollectionViewCell.self])
   }
   
   public func reloadData() {
