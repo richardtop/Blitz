@@ -1,10 +1,10 @@
 import UIKit
 
 public struct CollectionComponentState {
-  var backgroundColor: UIColor?
-  var components = [Component]()
-  var size = CGSize(width: 1000, height: 700)
-  var driver: CollectionDriver = CollectionDriver()
+  public var backgroundColor: UIColor?
+  public var components = [Component]()
+  public var size = CGSize(width: 1000, height: 400)
+  public var driver: CollectionDriver = CollectionDriver()
   public init(components: [Component] = []) {}
 }
 
