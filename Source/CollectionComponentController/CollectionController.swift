@@ -22,7 +22,7 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
     }
     set(new) {
       collectionView.dataSource = new
-      (collectionView.collectionViewLayout as? CollectionViewLayout)?.dataSource = new
+//      (collectionView.collectionViewLayout as? CollectionViewLayout)?.dataSource = new
     }
   }
   
@@ -54,11 +54,7 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
         self.collectionView.reloadItems(at: indexPaths)
       }
     } else {
-
-//      collectionView.performBatchUpdates({
         self.collectionView.reloadItems(at: indexPaths)
-//      }, completion: nil)
-
     }
   }
   
