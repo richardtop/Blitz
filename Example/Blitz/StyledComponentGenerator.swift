@@ -2,7 +2,7 @@ import UIKit
 import Blitz
 
 open class CoolComponent: ComponentBase {
-  
+
   var component: Component!
   var color = UIColor.white
 
@@ -35,14 +35,14 @@ open class CoolComponent: ComponentBase {
                                 interItemSpace: 5,
                                 addComponent: { (add) in
                                   if self.expanded {
-                                    //                                    for i in 0...2 {
-                                    //                                      add(TextComponent(text: "Expanded Part of the text", style: textStyles.title1))
-                                    //                                    }
+                                    for i in 0...2 {
+                                      add(TextComponent(text: "Expanded Part of the text", style: textStyles.title1))
+                                    }
                                   }
       })
 
       let button = TapableComponent(TextComponent(text: self.expanded ? "Collapse" : "Expand", style: textStyles.title1), { (component) in
-        self.expanded = !self.expanded
+//        self.expanded = !self.expanded
           self.reloadDelegate?.reload(component: self)
       })
 
@@ -50,8 +50,10 @@ open class CoolComponent: ComponentBase {
                                horizontalAlignment: !self.expanded ? .left : .right,
                                verticalAlignment: .top,
                                interItemSpace: 5,
+                               grow: true,
                                components: [
                                 button,
+                                list2,
                                 TextComponent(text: "Title1", style: textStyles.title1),
                                 TextComponent(text: "Title2", style: textStyles.title2),
                                 TextComponent(text: "Title3", style: textStyles.title3),
@@ -68,7 +70,7 @@ open class CoolComponent: ComponentBase {
       let listInset = InsetComponent(insets: UIEdgeInsets(top: 20, left: 20, bottom: self.expanded ? 80 : 20, right: 20),
                                      component: list)
 
-      let background = BackgroundComponent(component: listInset) { (backgroundView) in
+      let background = BackgroundComponent(component: list) { (backgroundView) in
         backgroundView.backgroundColor = self.color
 
         let shadowPath = UIBezierPath(rect: backgroundView.bounds)
@@ -93,6 +95,7 @@ open class CoolComponent: ComponentBase {
 
       let inset = InsetComponent(insets: UIEdgeInsets(top: 20 , left: 5, bottom: 10, right: 5),
                                  component: list3)
+
       return inset
     })
     return futureComponent

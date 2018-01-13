@@ -27,7 +27,8 @@ public class LogicController: ComponentReloadDelegate, CollectionControllerDispl
     self.nodeDataSource = NodeCollectionViewDataSource()
     self.viewController = CollectionController()
     
-    viewController.dataSource = nodeDataSource
+    viewController.collectionView.dataSource = nodeDataSource
+    (viewController.collectionView.collectionViewLayout as! CollectionViewLayout).dataSource = nodeDataSource
     viewController.displayDelegate = self
 //    viewController.logicController = self
   
@@ -90,26 +91,43 @@ public class LogicController: ComponentReloadDelegate, CollectionControllerDispl
   }
   
   public func reload(component: Component) {
-    if component is BackgroundComponent {return}
+
     print("ComponentLoginController wants reloadd")
     let b = components.index(where: {$0===component})!
     let newSubnodes = subnodes(component: component)
-    nodeDataSource.setSubnodes(subnodes: newSubnodes, at: b)
-
-//    self.viewController.collectionView.performBatchUpdates({
-//      self.viewController.collectionView.collectionViewLayout.invalidateLayout()
-//    }) { (b) in
-//
-//    }
-
+    let newDataSource = (viewController.collectionView.dataSource) as! NodeCollectionViewDataSource
+    newDataSource.setSubnodes(subnodes: newSubnodes, at: b)
 
     let newLayout = CollectionViewLayout()
-    newLayout.dataSource = nodeDataSource
+    newLayout.dataSource = newDataSource
+
+
+    nodeDataSource = newDataSource
+
+    viewController.collectionView.dataSource = newDataSource
+
+
+    viewController.reloadItems(at: [IndexPath(item: 1, section: 0)], animated: true)
+
+//    viewController.collectionView.reloadItems(at: [IndexPath(item: 1, section: 0)])
+//    viewController.collectionView.setCollectionViewLayout(newLayout, animated: true)
+
 //    newLayout.dataSource = nodeDataSource
 
 //    viewController.collectionView.insertItems(at: [IndexPath(item: 8, section: 0)])
 
-    viewController.collectionView.setCollectionViewLayout(newLayout, animated: true)
+
+//    viewController.collectionView.performBatchUpdates({
+
+
+//    }, completion: nil)
+
+//    viewController.collectionView.performBatchUpdates({
+
+//    }) { (b) in
+
+//    }
+
 //    viewController.collectionView.reloadSections([b])
 
 //    let newDS = nodeDataSource.copy() as! NodeCollectionViewDataSource

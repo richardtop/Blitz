@@ -76,8 +76,8 @@
 		607FACD21AFB9204008FA782 /* BlitzDemo */ = {
 			isa = PBXGroup;
 			children = (
-				CE56A72820095E22003D8EE5 /* StaticLogicController.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				CE56A72820095E22003D8EE5 /* StaticLogicController.swift */,
 				CE1B42892007E7500054954D /* SimulationComponentProvider.swift */,
 				CE1B428A2007E7500054954D /* StyledComponentGenerator.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
