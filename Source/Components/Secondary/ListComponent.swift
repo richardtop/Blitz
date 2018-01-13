@@ -23,6 +23,7 @@ public struct ListComponentState {
   public var horizontalAlignment: ListHorizontalAlignment
   public var verticalAlignment: ListVerticalAlignment
   public var interItemSpace: CGFloat
+  public var grow: Bool
 }
 
 open class ListComponent: ComponentBase {
@@ -39,12 +40,14 @@ open class ListComponent: ComponentBase {
        horizontalAlignment: ListHorizontalAlignment = .left,
        verticalAlignment: ListVerticalAlignment = .bottom,
        interItemSpace: CGFloat = 0,
+       grow: Bool = true,
        components: [Component]) {
     self.state = ListComponentState(components: components,
                                     direction: direction,
                                     horizontalAlignment: horizontalAlignment,
                                     verticalAlignment: verticalAlignment,
-                                    interItemSpace: interItemSpace)
+                                    interItemSpace: interItemSpace,
+                                    grow: grow)
     super.init()
     
     setParentComponentFor(components: components)
@@ -54,6 +57,7 @@ open class ListComponent: ComponentBase {
        horizontalAlignment: ListHorizontalAlignment = .left,
        verticalAlignment: ListVerticalAlignment = .bottom,
        interItemSpace: CGFloat = 0,
+       grow: Bool = true,
        addComponent: ListComponentAdder) {
     
     var components = [Component]()
@@ -65,7 +69,8 @@ open class ListComponent: ComponentBase {
                                     direction: direction,
                                     horizontalAlignment: horizontalAlignment,
                                     verticalAlignment: verticalAlignment,
-                                    interItemSpace: interItemSpace)
+                                    interItemSpace: interItemSpace,
+                                    grow: grow)
     super.init()
     
     setParentComponentFor(components: components)
@@ -84,7 +89,6 @@ open class ListComponent: ComponentBase {
     var childMaxSize = componentSize.max
     let space = state.interItemSpace
     let direction = state.direction
-    
     var subnodes = [Subnode]()
     
     let components = state.components
@@ -142,7 +146,20 @@ open class ListComponent: ComponentBase {
     }
     subnodes = newSubnodes
     
-    let nodeSize = listSize.constrained(by: context.sizeRange)
+    var nodeSize = listSize.constrained(by: context.sizeRange)
+
+    // TODO: Constrain MIN size as well
+    if state.grow {
+      switch direction {
+      case .horizontal:
+        nodeSize.height = context.sizeRange.max.height
+        break
+      case .vertical:
+        nodeSize.width = context.sizeRange.max.width
+        break
+      }
+    }
+
     let dxTotal = nodeSize.width - listSize.width
     let dyTotal = nodeSize.height - listSize.height
     
