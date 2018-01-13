@@ -16,8 +16,8 @@ class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollectionViewD
     view.dataSource = dataSource
     view.backgroundColor = .green
     view.showsHorizontalScrollIndicator = false
-    view.bounces = true
-    view.alwaysBounceVertical = true
+    view.bounces = false
+    view.alwaysBounceVertical = false
     view.delegate = self
 
     contentView.addSubview(view)
@@ -37,6 +37,12 @@ class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollectionViewD
 
   func update(node: Node) {
     if let state = node.state as? CollectionComponentState {
+      let driver = state.driver
+      let dataSource = driver.nodeDataSource
+      view.dataSource = dataSource
+      (view.collectionViewLayout as! CollectionViewLayout).dataSource = dataSource
+      view.reloadData()
+
       view.backgroundColor = state.backgroundColor
     }
   }

@@ -3,7 +3,7 @@ import UIKit
 public struct CollectionComponentState {
   var backgroundColor: UIColor?
   var components = [Component]()
-  var size = CGSize(width: 1000, height: 100)
+  var size = CGSize(width: 1000, height: 700)
   var driver: CollectionDriver = CollectionDriver()
   public init(components: [Component] = []) {}
 }
@@ -26,6 +26,13 @@ open class CollectionComponent: ComponentBase {
 
   override open func node(for context: ComponentContext) -> Node {
     var node = Node()
+
+
+    var childContext = context
+    childContext.sizeRange.max.height = state.size.height
+    state.driver.context = childContext
+    state.driver.reloadDriver()
+
     node.component = self
     node.state = state
     node.size = state.size.constrained(by: context.sizeRange)

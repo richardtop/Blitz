@@ -28,10 +28,8 @@ public class SimulationComponentProvider: ComponentProvider {
   static func generateCollectionComponent() -> Component {
     let future = FutureComponent { (context) -> Component in
       let style = context.styleSheet.text
-
       let text = TextComponent(text: "Morgan Stanley", style: style.title1)
-
-      return CollectionComponent(components: [text])
+      return CollectionComponent(components: [text, generateCoolComponent()])
     }
     return future
   }
