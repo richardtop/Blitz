@@ -22,7 +22,7 @@ open class CoolComponent: ComponentBase {
   override open func didSelectComponents(components: [Component]) {
     component = generateComponent()
     component.parent = self
-    reloadDelegate?.reload(component: self)
+//    reloadDelegate?.reload(component: self)
   }
 
   func generateComponent() -> Component {
@@ -35,28 +35,37 @@ open class CoolComponent: ComponentBase {
                                 interItemSpace: 5,
                                 addComponent: { (add) in
                                   if self.expanded {
-                                    for i in 0...2 {
-                                      add(TextComponent(text: "Expanded Part of the text", style: textStyles.headingAccent))
-                                    }
+                                    //                                    for i in 0...2 {
+                                    //                                      add(TextComponent(text: "Expanded Part of the text", style: textStyles.title1))
+                                    //                                    }
                                   }
       })
 
+      let button = TapableComponent(TextComponent(text: self.expanded ? "Collapse" : "Expand", style: textStyles.title1), { (component) in
+        self.expanded = !self.expanded
+          self.reloadDelegate?.reload(component: self)
+      })
+
       let list = ListComponent(direction: .vertical,
-                               horizontalAlignment: .left,
+                               horizontalAlignment: !self.expanded ? .left : .right,
                                verticalAlignment: .top,
                                interItemSpace: 5,
                                components: [
-                                TextComponent(text: "Title", style: textStyles.title),
-                                TextComponent(text: "Subtitle", style: textStyles.subtitle),
-                                TextComponent(text: "Heading1", style: textStyles.heading1),
-                                TextComponent(text: "Heading2", style: textStyles.heading2),
-                                TextComponent(text: "Heading3", style: textStyles.heading3),
-                                TextComponent(text: "HeadingAccent", style: textStyles.headingAccent),
+                                button,
+                                TextComponent(text: "Title1", style: textStyles.title1),
+                                TextComponent(text: "Title2", style: textStyles.title2),
+                                TextComponent(text: "Title3", style: textStyles.title3),
+                                TextComponent(text: "Headline", style: textStyles.headline),
                                 TextComponent(text: "Body", style: textStyles.body),
+                                TextComponent(text: "Callout", style: textStyles.callout),
+                                TextComponent(text: "Subheadline", style: textStyles.subhead),
+                                TextComponent(text: "Footnote", style: textStyles.footnote),
+                                TextComponent(text: "Caption1", style: textStyles.caption1),
+                                TextComponent(text: "Caption2", style: textStyles.caption2),
                                 list2,
                                 ])
-      
-      let listInset = InsetComponent(insets: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20),
+
+      let listInset = InsetComponent(insets: UIEdgeInsets(top: 20, left: 20, bottom: self.expanded ? 80 : 20, right: 20),
                                      component: list)
 
       let background = BackgroundComponent(component: listInset) { (backgroundView) in
@@ -69,13 +78,25 @@ open class CoolComponent: ComponentBase {
         backgroundView.layer.shadowOpacity = 0.2
         backgroundView.layer.shadowPath = shadowPath.cgPath
         backgroundView.layer.cornerRadius = 10
+        backgroundView.layer.borderColor = UIColor.red.cgColor
+        backgroundView.layer.borderWidth = 2
       }
 
-      let inset = InsetComponent(insets: UIEdgeInsets(top: 20, left: 5, bottom: 20, right: 5),
-                                 component: background)
+      let list3 = ListComponent(direction: .vertical,
+                                horizontalAlignment: .left,
+                                verticalAlignment: .top,
+                                interItemSpace: 5,
+                                components: [
+                                  InsetComponent(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0), component: TextComponent(text: "Section Header", style: textStyles.title2)),
+                                  background
+        ])
+
+      let inset = InsetComponent(insets: UIEdgeInsets(top: 20 , left: 5, bottom: 10, right: 5),
+                                 component: list3)
       return inset
     })
     return futureComponent
   }
+
 }
 

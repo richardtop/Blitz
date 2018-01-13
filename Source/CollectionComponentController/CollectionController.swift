@@ -28,7 +28,6 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
   
   public weak var displayDelegate: CollectionControllerDisplayDelegate?
   
-  public var logicController: LogicController?
   
   override public func loadView() {
     self.view = collectionView
@@ -49,17 +48,21 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
     collectionView.reloadData()
   }
   
-  func reloadItems(at indexPaths: [IndexPath], animated: Bool = true) {
+  public func reloadItems(at indexPaths: [IndexPath], animated: Bool = true) {
     if !animated {
       UIView.performWithoutAnimation {
         self.collectionView.reloadItems(at: indexPaths)
       }
     } else {
-      collectionView.reloadItems(at: indexPaths)
+
+//      collectionView.performBatchUpdates({
+        self.collectionView.reloadItems(at: indexPaths)
+//      }, completion: nil)
+
     }
   }
   
-  func reloadSection(sections: IndexSet, animated: Bool = true) {
+  public func reloadSection(sections: IndexSet, animated: Bool = true) {
     if !animated {
       UIView.performWithoutAnimation {
         self.collectionView.reloadSections(sections)
@@ -84,6 +87,7 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
   }
   
   public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+    print(indexPath)
   }
   
   public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
