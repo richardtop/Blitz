@@ -33,6 +33,7 @@ open class CoolComponent: ComponentBase {
                                 horizontalAlignment: .left,
                                 verticalAlignment: .top,
                                 interItemSpace: 5,
+                                grow: false,
                                 addComponent: { (add) in
                                   if self.expanded {
                                     for i in 0...2 {
@@ -50,7 +51,7 @@ open class CoolComponent: ComponentBase {
                                horizontalAlignment: !self.expanded ? .left : .right,
                                verticalAlignment: .top,
                                interItemSpace: 5,
-                               grow: true,
+                               grow: false,
                                components: [
                                 button,
                                 list2,
@@ -88,6 +89,7 @@ open class CoolComponent: ComponentBase {
                                 horizontalAlignment: .left,
                                 verticalAlignment: .top,
                                 interItemSpace: 5,
+                                grow: false,
                                 components: [
                                   InsetComponent(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0), component: TextComponent(text: "Section Header", style: textStyles.title2)),
                                   background

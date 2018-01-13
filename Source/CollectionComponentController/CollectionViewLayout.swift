@@ -1,17 +1,32 @@
 import UIKit
 
+enum CollectionLayoutDirection {
+  case horizontal
+  case vertical
+}
+
 class CollectionViewLayout: UICollectionViewLayout {
+
+  let direction: CollectionLayoutDirection
   
   var cache = [[UICollectionViewLayoutAttributes]]()
-  var lastCalculatedBottomY: CGFloat = 0
+  var leadingEdgeValue: CGFloat = 0
   
   var dataSource: NodeCollectionViewDataSource!
-  
+
+  init(direction: CollectionLayoutDirection = .vertical) {
+    self.direction = direction
+    super.init()
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func prepare() {
     super.prepare()
-    print("Prepare")
     var groupsOfSectionsAttributes = [[UICollectionViewLayoutAttributes]]()
-    var bottom: CGFloat = 0
+    var currentLeadingEdge: CGFloat = 0
     
     if dataSource.numberOfSections() == 0 {
       return
@@ -29,7 +44,14 @@ class CollectionViewLayout: UICollectionViewLayout {
         let indexPath = IndexPath(indexes: [s, i])
         let subnode = dataSource.itemAtIndexPath(indexPath: indexPath)
         let nodeOrigin = subnode.origin
-        let origin = CGPoint(x: nodeOrigin.x, y: nodeOrigin.y + bottom)
+        var origin = CGPoint.zero
+        switch direction {
+        case .horizontal:
+          origin = CGPoint(x: nodeOrigin.x + currentLeadingEdge, y: nodeOrigin.y)
+        case .vertical:
+          origin = CGPoint(x: nodeOrigin.x, y: nodeOrigin.y + currentLeadingEdge)
+        }
+
         let size = subnode.node.size
 
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -37,19 +59,24 @@ class CollectionViewLayout: UICollectionViewLayout {
         attributes.zIndex = subnode.node.zIndex
 
         sectionAttributes.append(attributes)
-        sectionGroupsAttributes = max(sectionGroupsAttributes, bottomY(subnode: subnode))
+        sectionGroupsAttributes = max(sectionGroupsAttributes, edge(subnode: subnode))
       }
 
       groupsOfSectionsAttributes.append(sectionAttributes)
-      bottom += sectionGroupsAttributes
+      currentLeadingEdge += sectionGroupsAttributes
     }
-    lastCalculatedBottomY = bottom
+    leadingEdgeValue = currentLeadingEdge
     cache = groupsOfSectionsAttributes
   }
   
   override var collectionViewContentSize: CGSize {
     let bounds = collectionView?.bounds ?? .zero
-    return CGSize(width: bounds.width, height: lastCalculatedBottomY)
+    switch direction {
+    case .horizontal:
+      return CGSize(width: leadingEdgeValue, height: bounds.height)
+    case .vertical:
+      return CGSize(width: bounds.width, height: leadingEdgeValue)
+    }
   }
   
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -71,7 +98,12 @@ class CollectionViewLayout: UICollectionViewLayout {
     return false
   }
   
-  private func bottomY(subnode: Subnode) -> CGFloat {
-    return subnode.origin.y + subnode.node.size.height
+  private func edge(subnode: Subnode) -> CGFloat {
+    switch direction {
+    case .horizontal:
+      return subnode.origin.x + subnode.node.size.width
+    case .vertical:
+      return subnode.origin.y + subnode.node.size.height
+    }
   }
 }

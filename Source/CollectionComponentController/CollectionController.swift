@@ -6,7 +6,7 @@ public protocol CollectionControllerDisplayDelegate: class {
 
 public class CollectionController: UIViewController, UICollectionViewDelegate {
   public lazy var collectionView: UICollectionView = { [unowned self] in
-    let layout = CollectionViewLayout()
+    let layout = CollectionViewLayout(direction: .horizontal)
     let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
     view.backgroundColor = .white
     view.showsHorizontalScrollIndicator = false
