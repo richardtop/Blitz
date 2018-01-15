@@ -1,9 +1,9 @@
 import UIKit
 
-class CollectionCellBase<T: UIView>: UICollectionViewCell {
+open class CollectionCellBase<T: UIView>: UICollectionViewCell {
   let view = T()
   
-  override var isHighlighted: Bool {
+  override open var isHighlighted: Bool {
     didSet {
       alpha = isHighlighted ? 0.5 : 1
     }
@@ -14,11 +14,11 @@ class CollectionCellBase<T: UIView>: UICollectionViewCell {
     contentView.addSubview(view)
   }
   
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     view.frame = bounds
   }

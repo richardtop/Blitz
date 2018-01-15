@@ -1,13 +1,13 @@
 import UIKit
 
-class ImageComponent: ComponentBase {
-  let image: UIImage?
+open class ImageComponent: ComponentBase {
+  public let image: UIImage?
   
-  init(image: UIImage?) {
+  public init(image: UIImage?) {
     self.image = image
   }
   
-  override func node(for context: ComponentContext) -> Node {
+  override open func node(for context: ComponentContext) -> Node {
     var node = Node()
     node.state = image
     node.component = self

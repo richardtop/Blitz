@@ -1,13 +1,13 @@
 import UIKit
 
-public class TextComponent: ComponentBase {
+open class TextComponent: ComponentBase {
   let text: NSAttributedString?
 
   public init(text: NSAttributedString?) {
     self.text = text
   }
   
-  override public func node(for context: ComponentContext) -> Node {
+  override open func node(for context: ComponentContext) -> Node {
     var node = Node()
     node.state = text
     node.component = self
@@ -24,7 +24,7 @@ public class TextComponent: ComponentBase {
   }
 }
 
-extension TextComponent {
+public extension TextComponent {
   public convenience init(text: String?, style: TextStyleProtocol) {
     self.init(text: NSAttributedString(string: text ?? "", style: style))
   }
