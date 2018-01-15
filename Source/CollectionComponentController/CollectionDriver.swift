@@ -1,10 +1,3 @@
-//
-//  CollectionDriver.swift
-//  Blitz
-//
-//  Created by Richard Topchii on 13/01/2018.
-//
-
 import Foundation
 
 open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDisplayDelegate {
