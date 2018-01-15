@@ -1,29 +1,28 @@
 import UIKit
 
-enum CollectionLayoutDirection {
-  case horizontal
-  case vertical
-}
+open class CollectionViewLayout: UICollectionViewLayout {
+  public enum Direction {
+    case horizontal
+    case vertical
+  }
 
-class CollectionViewLayout: UICollectionViewLayout {
-
-  let direction: CollectionLayoutDirection
+  let direction: Direction
   
   var cache = [[UICollectionViewLayoutAttributes]]()
   var leadingEdgeValue: CGFloat = 0
   
   var dataSource: NodeCollectionViewDataSource!
 
-  init(direction: CollectionLayoutDirection = .vertical) {
+  init(direction: Direction = .vertical) {
     self.direction = direction
     super.init()
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func prepare() {
+  override open func prepare() {
     super.prepare()
     var groupsOfSectionsAttributes = [[UICollectionViewLayoutAttributes]]()
     var currentLeadingEdge: CGFloat = 0
@@ -69,7 +68,7 @@ class CollectionViewLayout: UICollectionViewLayout {
     cache = groupsOfSectionsAttributes
   }
   
-  override var collectionViewContentSize: CGSize {
+  override open var collectionViewContentSize: CGSize {
     let bounds = collectionView?.bounds ?? .zero
     switch direction {
     case .horizontal:
@@ -79,15 +78,15 @@ class CollectionViewLayout: UICollectionViewLayout {
     }
   }
   
-  override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+  override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     return cache.joined().filter{$0.frame.intersects(rect)}
   }
   
-  override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+  override open func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
     return cache[indexPath.section][indexPath.item]
   }
   
-  override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+  override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
     guard let currentSize = collectionView?.bounds.size else {return true}
     let newSize = newBounds.size
     

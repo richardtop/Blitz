@@ -1,15 +1,15 @@
 import UIKit
 
-public class NodeCollectionViewDataSource: DataSource<Subnode>, UICollectionViewDataSource {
-  public func numberOfSections(in collectionView: UICollectionView) -> Int {
+ open class NodeCollectionViewDataSource: DataSource<Subnode>, UICollectionViewDataSource {
+   open func numberOfSections(in collectionView: UICollectionView) -> Int {
     return numberOfSections()
   }
   
-  public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+   open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return numberOfItems(in: section)
   }
   
-  public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+   open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let subnode = itemAtIndexPath(indexPath: indexPath)
     let viewType = subnode.node.viewType
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: viewType!),
@@ -21,15 +21,15 @@ public class NodeCollectionViewDataSource: DataSource<Subnode>, UICollectionView
     return cell
   }
   
-  public func setSubnode(subnode: Subnode, at indexPath: IndexPath) {
+   open func setSubnode(subnode: Subnode, at indexPath: IndexPath) {
     data[indexPath.section][indexPath.item] = subnode
   }
   
-  public func setSubnodes(subnodes: [Subnode], at section: Int) {
+   open func setSubnodes(subnodes: [Subnode], at section: Int) {
     data[section] = subnodes
   }
   
-  public func append(sections: [[Subnode]]) {
+   open func append(sections: [[Subnode]]) {
     data.append(contentsOf: sections)
   }
 }

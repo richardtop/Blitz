@@ -1,11 +1,11 @@
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollectionViewDelegate {
+open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollectionViewDelegate {
 
-  let view: UICollectionView
-  var driver: CollectionDriver!
+  public let view: UICollectionView
+  public var driver: CollectionDriver!
 
-  override init(frame: CGRect) {
+  public override init(frame: CGRect) {
     let layout = CollectionViewLayout()
     let dataSource = NodeCollectionViewDataSource()
     layout.dataSource = dataSource
@@ -24,18 +24,18 @@ class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollectionViewD
     registerCells()
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func registerCells() {
+  open func registerCells() {
     view.registerClasses([ImageCell.self,
                                     ViewCell.self,
                                     TextCell.self,
                                     CollectionViewCell.self])
   }
 
-  func update(node: Node) {
+  open func update(node: Node) {
     if let state = node.state as? CollectionComponentState {
       let driver = state.driver
       let dataSource = driver.nodeDataSource
@@ -47,7 +47,7 @@ class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollectionViewD
     }
   }
 
-  override func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     view.frame = bounds
   }

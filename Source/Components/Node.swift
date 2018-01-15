@@ -1,20 +1,20 @@
 import CoreGraphics
 
-protocol NodeUpdatable {
+public protocol NodeUpdatable {
   func update(node: Node)
 }
 
 public struct Node {
-  var state: Any?
-  var component: Component?
-  var highlighted = false
-  var subnodes: [Subnode]
-  var size: CGSize
-  var zIndex: Int = 0
-  var translatesIntoView: Bool {
+  public var state: Any?
+  public var component: Component?
+  public var highlighted = false
+  public var subnodes: [Subnode]
+  public var size: CGSize
+  public var zIndex: Int = 0
+  public var translatesIntoView: Bool {
     return viewType != nil
   }
-  var viewType: NodeUpdatable.Type?
+  public var viewType: NodeUpdatable.Type?
 
   init(subnodes: [Subnode] = [], size: CGSize = .zero) {
     self.subnodes = subnodes
@@ -34,19 +34,19 @@ public struct Node {
 }
 
 public struct Subnode {
-  var origin: CGPoint
-  var node: Node
+  public var origin: CGPoint
+  public var node: Node
   
-  init(node: Node, at point: CGPoint = .zero) {
+  public init(node: Node, at point: CGPoint = .zero) {
     self.node = node
     self.origin = point
   }
   
-  func recursiveDescription() {
+  public func recursiveDescription() {
     recursiveDescription(acc: "")
   }
   
-  func recursiveDescription(acc: String) {
+  public func recursiveDescription(acc: String) {
     node.recursiveDescription(acc: acc, origin: origin)
   }
 }

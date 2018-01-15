@@ -1,6 +1,11 @@
 import UIKit
 
 public struct CollectionComponentState {
+  public enum Direction {
+    case horizontal
+    case vertical
+  }
+  public var direction: Direction = .vertical
   public var backgroundColor: UIColor?
   public var components = [Component]()
   public var size = CGSize(width: 1000, height: 400)
@@ -10,6 +15,12 @@ public struct CollectionComponentState {
 
 open class CollectionComponent: ComponentBase {
   public var state: CollectionComponentState
+
+  public init(direction: CollectionComponentState.Direction = .vertical) {
+    var state = CollectionComponentState()
+    state.direction = direction
+    self.state = state
+  }
 
   public init(state: CollectionComponentState) {
     self.state = state

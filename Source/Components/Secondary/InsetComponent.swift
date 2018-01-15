@@ -5,7 +5,7 @@ public struct InsetComponentState {
   public let insets: UIEdgeInsets
 }
 
-public class InsetComponent: ComponentBase {
+open class InsetComponent: ComponentBase {
   public typealias InsetComponentBuilder = () -> Component
   
   var state: InsetComponentState
@@ -25,7 +25,7 @@ public class InsetComponent: ComponentBase {
     self.init(insets: insets, component: component)
   }
   
-  override public func node(for context: ComponentContext) -> Node {
+  override open func node(for context: ComponentContext) -> Node {
     let insets = state.insets
     let hInsets = insets.left + insets.right
     let vInsets = insets.top + insets.bottom
