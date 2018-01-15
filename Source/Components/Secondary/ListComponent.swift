@@ -1,27 +1,27 @@
 import CoreGraphics
 
 public struct ListComponentState {
-  public enum ListDirection {
+  public enum Direction {
     case horizontal
     case vertical
   }
 
-  public enum ListHorizontalAlignment {
+  public enum HorizontalAlignment {
     case left
     case center
     case right
   }
 
-  public enum ListVerticalAlignment {
+  public enum VerticalAlignment {
     case top
     case middle
     case bottom
   }
 
   public var components: [Component]
-  public var direction: ListDirection
-  public var horizontalAlignment: ListHorizontalAlignment
-  public var verticalAlignment: ListVerticalAlignment
+  public var direction: Direction
+  public var horizontalAlignment: HorizontalAlignment
+  public var verticalAlignment: VerticalAlignment
   public var interItemSpace: CGFloat
   public var grow: Bool
 }
@@ -36,9 +36,9 @@ open class ListComponent: ComponentBase {
     self.state = state
   }
   
-  public init(direction: ListComponentState.ListDirection = .vertical,
-       horizontalAlignment: ListComponentState.ListHorizontalAlignment = .left,
-       verticalAlignment: ListComponentState.ListVerticalAlignment = .bottom,
+  public init(direction: ListComponentState.Direction = .vertical,
+       horizontalAlignment: ListComponentState.HorizontalAlignment = .left,
+       verticalAlignment: ListComponentState.VerticalAlignment = .bottom,
        interItemSpace: CGFloat = 0,
        grow: Bool = true,
        components: [Component]) {
@@ -53,9 +53,9 @@ open class ListComponent: ComponentBase {
     setParentComponentFor(components: components)
   }
   
-  public init(direction: ListComponentState.ListDirection = .horizontal,
-       horizontalAlignment: ListComponentState.ListHorizontalAlignment = .left,
-       verticalAlignment: ListComponentState.ListVerticalAlignment = .bottom,
+  public init(direction: ListComponentState.Direction = .horizontal,
+       horizontalAlignment: ListComponentState.HorizontalAlignment = .left,
+       verticalAlignment: ListComponentState.VerticalAlignment = .bottom,
        interItemSpace: CGFloat = 0,
        grow: Bool = true,
        addComponent: ListComponentAdder) {
