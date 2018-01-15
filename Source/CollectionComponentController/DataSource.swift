@@ -1,7 +1,13 @@
 import Foundation
 
-open class DataSource<T>: NSObject {
+open class DataSource<T>: NSObject, NSCopying {
   public var data = [[T]]()
+
+  public func copy(with zone: NSZone? = nil) -> Any {
+    let new = DataSource<T>()
+    new.data = data
+    return new
+  }
   
   public func numberOfSections() -> Int {
     return data.count

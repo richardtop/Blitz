@@ -1,7 +1,7 @@
 import CoreGraphics
 
-struct NodeTools {
-  static func simplifiedNodeHierarchy(node: Node, at point: CGPoint, zIndex: Int) -> [Subnode] {
+public struct NodeTools {
+  public static func simplifiedNodeHierarchy(node: Node, at point: CGPoint, zIndex: Int) -> [Subnode] {
     var acc = [Subnode]()
     NodeTools.simplifyNodeHierarchy(node: node, at: point, zIndex: zIndex, acc: &acc)
     return acc

@@ -21,11 +21,9 @@ open class BackgroundComponent: ComponentBase {
   override open func node(for context: ComponentContext) -> Node {
     var node = Node()
     node.component = self
-    
     let childNode = state.component.node(for: context)
     node.size = childNode.size.constrained(by: context.sizeRange)
     node.viewType = ViewCell.self
-    node.translatesIntoView = true
     node.state = state.configurationBlock
     node.subnodes = [Subnode(node: childNode, at: .zero)]
     

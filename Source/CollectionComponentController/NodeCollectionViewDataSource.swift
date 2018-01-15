@@ -21,15 +21,15 @@ public class NodeCollectionViewDataSource: DataSource<Subnode>, UICollectionView
     return cell
   }
   
-  func setSubnode(subnode: Subnode, at indexPath: IndexPath) {
+  public func setSubnode(subnode: Subnode, at indexPath: IndexPath) {
     data[indexPath.section][indexPath.item] = subnode
   }
   
-  func setSubnodes(subnodes: [Subnode], at section: Int) {
+  public func setSubnodes(subnodes: [Subnode], at section: Int) {
     data[section] = subnodes
   }
   
-  func append(sections: [[Subnode]]) {
+  public func append(sections: [[Subnode]]) {
     data.append(contentsOf: sections)
   }
 }

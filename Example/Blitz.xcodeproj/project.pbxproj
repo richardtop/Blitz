@@ -13,6 +13,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		CE1B428B2007E7500054954D /* SimulationComponentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B42892007E7500054954D /* SimulationComponentProvider.swift */; };
 		CE1B428C2007E7500054954D /* StyledComponentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B428A2007E7500054954D /* StyledComponentGenerator.swift */; };
+		CE56A72920095E22003D8EE5 /* StaticLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE56A72820095E22003D8EE5 /* StaticLogicController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		9400F9A15CBDD0B3578349D4 /* Pods_Blitz_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blitz_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1B42892007E7500054954D /* SimulationComponentProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulationComponentProvider.swift; sourceTree = "<group>"; };
 		CE1B428A2007E7500054954D /* StyledComponentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledComponentGenerator.swift; sourceTree = "<group>"; };
+		CE56A72820095E22003D8EE5 /* StaticLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticLogicController.swift; sourceTree = "<group>"; };
 		E94678C8598B1D46F09BD073 /* Pods-Blitz_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blitz_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blitz_Tests/Pods-Blitz_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		EBDF18519B188F6F3BB1C8FC /* Pods-Blitz_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blitz_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blitz_Example/Pods-Blitz_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				CE56A72820095E22003D8EE5 /* StaticLogicController.swift */,
 				CE1B42892007E7500054954D /* SimulationComponentProvider.swift */,
 				CE1B428A2007E7500054954D /* StyledComponentGenerator.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -242,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE56A72920095E22003D8EE5 /* StaticLogicController.swift in Sources */,
 				CE1B428C2007E7500054954D /* StyledComponentGenerator.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				CE1B428B2007E7500054954D /* SimulationComponentProvider.swift in Sources */,

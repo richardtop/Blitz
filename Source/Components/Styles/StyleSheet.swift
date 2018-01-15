@@ -6,11 +6,15 @@ public struct StyleSheet {
 }
 
 public struct TextStyleSheet {
-  public var title: TextStyleProtocol = TextStyle().withFont(.boldSystemFont(ofSize: 30))
-  public var subtitle: TextStyleProtocol = TextStyle().ofSize(20)
-  public var heading1: TextStyleProtocol = TextStyle().withFont(.boldSystemFont(ofSize: 18))
-  public var heading2: TextStyleProtocol = TextStyle().withFont(.boldSystemFont(ofSize: 16))
-  public var heading3: TextStyleProtocol = TextStyle().ofSize(14)
-  public var headingAccent: TextStyleProtocol = TextStyle().withFont(.boldSystemFont(ofSize: 16)).ofColor(.red)
-  public var body: TextStyleProtocol = TextStyle()
+//  public var largeTytle: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .largeTitle))
+  public var title1: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .title1))
+  public var title2: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .title2))
+  public var title3: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .title3))
+  public var headline: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .headline))
+  public var body: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .body))
+  public var callout: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .callout))
+  public var subhead: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .subheadline))
+  public var footnote: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .footnote))
+  public var caption1: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .caption1))
+  public var caption2: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .caption2))
 }

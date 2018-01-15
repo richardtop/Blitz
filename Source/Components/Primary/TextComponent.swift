@@ -2,7 +2,7 @@ import UIKit
 
 public class TextComponent: ComponentBase {
   let text: NSAttributedString?
-  
+
   public init(text: NSAttributedString?) {
     self.text = text
   }
@@ -11,7 +11,6 @@ public class TextComponent: ComponentBase {
     var node = Node()
     node.state = text
     node.component = self
-    node.translatesIntoView = true
     node.viewType = TextCell.self
     
     let maxWidth = context.sizeRange.max.width
@@ -22,5 +21,11 @@ public class TextComponent: ComponentBase {
     node.size = size.constrained(by: context.sizeRange)
 
     return node
+  }
+}
+
+extension TextComponent {
+  public convenience init(text: String?, style: TextStyleProtocol) {
+    self.init(text: NSAttributedString(string: text ?? "", style: style))
   }
 }

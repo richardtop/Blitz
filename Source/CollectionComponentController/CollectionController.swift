@@ -6,7 +6,7 @@ public protocol CollectionControllerDisplayDelegate: class {
 
 public class CollectionController: UIViewController, UICollectionViewDelegate {
   public lazy var collectionView: UICollectionView = { [unowned self] in
-    let layout = CollectionViewLayout()
+    let layout = CollectionViewLayout(direction: .horizontal)
     let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
     view.backgroundColor = .white
     view.showsHorizontalScrollIndicator = false
@@ -22,13 +22,12 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
     }
     set(new) {
       collectionView.dataSource = new
-      (collectionView.collectionViewLayout as? CollectionViewLayout)?.dataSource = new
+//      (collectionView.collectionViewLayout as? CollectionViewLayout)?.dataSource = new
     }
   }
   
   public weak var displayDelegate: CollectionControllerDisplayDelegate?
   
-  public var logicController: LogicController?
   
   override public func loadView() {
     self.view = collectionView
@@ -42,24 +41,25 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
   func registerCells() {
     collectionView.registerClasses([ImageCell.self,
                                     ViewCell.self,
-                                    TextCell.self])
+                                    TextCell.self,
+                                    CollectionViewCell.self])
   }
   
   public func reloadData() {
     collectionView.reloadData()
   }
   
-  func reloadItems(at indexPaths: [IndexPath], animated: Bool = true) {
+  public func reloadItems(at indexPaths: [IndexPath], animated: Bool = true) {
     if !animated {
       UIView.performWithoutAnimation {
         self.collectionView.reloadItems(at: indexPaths)
       }
     } else {
-      collectionView.reloadItems(at: indexPaths)
+        self.collectionView.reloadItems(at: indexPaths)
     }
   }
   
-  func reloadSection(sections: IndexSet, animated: Bool = true) {
+  public func reloadSection(sections: IndexSet, animated: Bool = true) {
     if !animated {
       UIView.performWithoutAnimation {
         self.collectionView.reloadSections(sections)
@@ -84,6 +84,7 @@ public class CollectionController: UIViewController, UICollectionViewDelegate {
   }
   
   public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+    print(indexPath)
   }
   
   public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
