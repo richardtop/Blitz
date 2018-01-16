@@ -74,6 +74,7 @@ open class CoolComponent: ComponentBase {
                                           TextComponent(text: "Title2", style: textStyles.title2),
                                           TextComponent(text: "Title2", style: textStyles.title2),
                                           TextComponent(text: "Title2", style: textStyles.title2),
+                                          
         ])
 
       var embeddedArray = [Component]()
@@ -94,7 +95,9 @@ open class CoolComponent: ComponentBase {
                                 button,
                                 list2,
                                 TextComponent(text: "Title1" + String.random(length: 10), style: textStyles.title1),
+                                SeparatorComponent(),
                                 TextComponent(text: "Title2" + String.random(length: 10), style: textStyles.title2),
+                                SeparatorComponent(),
                                 TextComponent(text: "Title3" + String.random(length: 10), style: textStyles.title3),
 //                                TextComponent(text: "Headline + String.random(length: 10)", style: textStyles.headline),
 //                                TextComponent(text: "Body" + String.random(length: 10), style: textStyles.body),

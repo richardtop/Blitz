@@ -22,8 +22,12 @@ import Blitz
     }
 
     let component = CoolComponent()
-    host.appendNewComponents(components: largeAmountofComponents)
     window?.rootViewController = host
+
+
+
+    host.appendNewComponents(components: largeAmountofComponents)
+
 
     
     return true
