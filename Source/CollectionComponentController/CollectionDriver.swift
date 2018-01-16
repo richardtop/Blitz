@@ -17,16 +17,15 @@ open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDispla
 
   var maxDimension: CGFloat = 0
 
-  var state: CollectionComponentState?
+  var direction: CollectionComponentState.Direction = .vertical
 
-  func updateState(state: CollectionComponentState) {
-    self.state = state
-
+  func update(direction: CollectionComponentState.Direction) {
+    self.direction = direction
     var nodes = [[Subnode]]()
 
     for component in components {
       component.reloadDelegate = self
-      switch state.direction {
+      switch direction {
       case .horizontal:
         maxDimension = max(maxDimension, component.node(for: context).size.height)
       case .vertical:
@@ -44,8 +43,7 @@ open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDispla
     layout.dataSource = nodeDataSource
     layout.prepare()
 
-    guard let state = state else {return .zero}
-    switch state.direction {
+    switch direction {
     case .horizontal:
       return CGSize(width: layout.collectionViewContentSize.width, height: maxDimension)
     case .vertical:

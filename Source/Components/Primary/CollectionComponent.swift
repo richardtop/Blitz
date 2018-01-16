@@ -43,7 +43,7 @@ open class CollectionComponent: ComponentBase {
     state.driver.context = childContext
 
     // Could there be a better place to reload driver to save perormance?
-    state.driver.updateState(state: state)
+    state.driver.update(direction: state.direction)
 
     let contentsize = state.driver.internalSize()
 
