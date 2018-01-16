@@ -14,11 +14,12 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
     super.init(frame: frame)
 
     view.dataSource = dataSource
-    view.backgroundColor = .green
     view.showsHorizontalScrollIndicator = false
-    view.bounces = false
+    view.bounces = true
     view.alwaysBounceVertical = false
     view.delegate = self
+
+    view.backgroundColor = .white
 
     contentView.addSubview(view)
     registerCells()

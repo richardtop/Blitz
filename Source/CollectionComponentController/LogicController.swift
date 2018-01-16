@@ -44,7 +44,7 @@ public class LogicController: ComponentReloadDelegate, CollectionControllerDispl
   }
   
   func loadNextData() {
-    loadDataWith(offset: components.count, count: 100)
+    loadDataWith(offset: components.count, count: 15)
   }
   
   func loadDataWith(offset: Int, count: Int) {
