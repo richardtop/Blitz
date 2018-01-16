@@ -56,7 +56,7 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
 
   open override func prepareForReuse() {
     super.prepareForReuse()
-//    detachDriver()
+    detachDriver()
   }
 
   override open func layoutSubviews() {

@@ -17,22 +17,40 @@ open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDispla
 
   var maxDimension: CGFloat = 0
 
-  open func reloadDriver() {
+  var state: CollectionComponentState?
+
+  func updateState(state: CollectionComponentState) {
+    self.state = state
+
     var nodes = [[Subnode]]()
+
     for component in components {
       component.reloadDelegate = self
-      maxDimension = max(maxDimension, component.node(for: context).size.height)
+      switch state.direction {
+      case .horizontal:
+        maxDimension = max(maxDimension, component.node(for: context).size.height)
+      case .vertical:
+        maxDimension = max(maxDimension, component.node(for: context).size.width)
+      }
       let node = self.subnodes(component: component)
       nodes.append(node)
     }
     nodeDataSource.data = nodes
   }
+
   // Experimental
   func internalSize() -> CGSize {
     let layout = CollectionViewLayout(direction: .horizontal)
     layout.dataSource = nodeDataSource
     layout.prepare()
-    return CGSize(width: layout.collectionViewContentSize.width, height: maxDimension)
+
+    guard let state = state else {return .zero}
+    switch state.direction {
+    case .horizontal:
+      return CGSize(width: layout.collectionViewContentSize.width, height: maxDimension)
+    case .vertical:
+      return CGSize(width: maxDimension, height: layout.collectionViewContentSize.height)
+    }
   }
 
   open func appendNewComponents(components: [Component]) {

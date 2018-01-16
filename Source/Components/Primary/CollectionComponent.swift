@@ -7,6 +7,8 @@ public struct CollectionComponentState {
   }
   public var direction: Direction = .vertical
   public var components = [Component]()
+  public var preferredSize = CGSize.maxSize
+  // Do not store driver here to prevent memory leaks
   public var driver: CollectionDriver = CollectionDriver()
   public init(components: [Component] = []) {}
 }
@@ -36,26 +38,18 @@ open class CollectionComponent: ComponentBase {
 
     // Inject correct infinite width or height depending on scroll direction
     var childContext = context
-
-    switch state.direction {
-    case .horizontal:
-      childContext.sizeRange.max.width = .greatestFiniteMagnitude
-//      childContext.sizeRange.max.height = state.size.height
-    case .vertical:
-//      childContext.sizeRange.max.width = state.size.width
-      childContext.sizeRange.max.height = .greatestFiniteMagnitude
-    }
-
+    childContext.sizeRange.max = state.preferredSize
     state.driver.components = state.components
     state.driver.context = childContext
 
     // Could there be a better place to reload driver to save perormance?
-    state.driver.reloadDriver()
+    state.driver.updateState(state: state)
 
     let contentsize = state.driver.internalSize()
 
     node.component = self
     node.state = state
+
     node.size = contentsize.constrained(by: context.sizeRange)
     node.viewType = CollectionViewCell.self
 
