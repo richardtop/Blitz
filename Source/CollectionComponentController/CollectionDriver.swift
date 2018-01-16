@@ -32,17 +32,7 @@ open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDispla
     let layout = CollectionViewLayout(direction: .horizontal)
     layout.dataSource = nodeDataSource
     layout.prepare()
-
-//    let maxHeight = nodeDataSource.data.flatMap{$0}.map{$0.node.size.height}.max()
-//
-//    return CGSize(width: layout.collectionViewContentSize.width, height: maxHeight ?? 150)
-
-
     return CGSize(width: layout.collectionViewContentSize.width, height: maxDimension)
-
-
-    
-    return layout.collectionViewContentSize
   }
 
   open func appendNewComponents(components: [Component]) {

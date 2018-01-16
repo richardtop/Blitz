@@ -40,7 +40,6 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
       let driver = state.driver
       attach(driver: driver)
       view.reloadData()
-      view.backgroundColor = state.backgroundColor
     }
   }
 
