@@ -96,32 +96,35 @@ open class CoolComponent: ComponentBase {
                                 TextComponent(text: "Title1" + String.random(length: 10), style: textStyles.title1),
                                 TextComponent(text: "Title2" + String.random(length: 10), style: textStyles.title2),
                                 TextComponent(text: "Title3" + String.random(length: 10), style: textStyles.title3),
-                                TextComponent(text: "Headline + String.random(length: 10)", style: textStyles.headline),
-                                TextComponent(text: "Body" + String.random(length: 10), style: textStyles.body),
-                                TextComponent(text: "Callout" + String.random(length: 10), style: textStyles.callout),
-                                TextComponent(text: "Subheadline" + String.random(length: 10), style: textStyles.subhead),
-                                TextComponent(text: "Footnote" + String.random(length: 10), style: textStyles.footnote),
-                                TextComponent(text: "Caption1" + String.random(length: 10), style: textStyles.caption1),
-                                TextComponent(text: "Caption2" + String.random(length: 10), style: textStyles.caption2),
+//                                TextComponent(text: "Headline + String.random(length: 10)", style: textStyles.headline),
+//                                TextComponent(text: "Body" + String.random(length: 10), style: textStyles.body),
+//                                TextComponent(text: "Callout" + String.random(length: 10), style: textStyles.callout),
+//                                TextComponent(text: "Subheadline" + String.random(length: 10), style: textStyles.subhead),
+//                                TextComponent(text: "Footnote" + String.random(length: 10), style: textStyles.footnote),
+//                                TextComponent(text: "Caption1" + String.random(length: 10), style: textStyles.caption1),
+//                                TextComponent(text: "Caption2" + String.random(length: 10), style: textStyles.caption2),
                                 list2,
                                 collection
         ])
 
-      let listInset = InsetComponent(insets: UIEdgeInsets(top: 20, left: 20, bottom: self.expanded ? 80 : 20, right: 20),
+      let listInset = InsetComponent(insets: UIEdgeInsets(top: 10, left: 10, bottom: self.expanded ? 80 : 20, right: 20),
                                      component: list)
 
-      let background = BackgroundComponent(component: list) { (backgroundView) in
+      let background = BackgroundComponent(component: listInset) { (backgroundView) in
         backgroundView.backgroundColor = self.color
 
-        let shadowPath = UIBezierPath(rect: backgroundView.bounds)
-        backgroundView.layer.masksToBounds = false
-        backgroundView.layer.shadowColor = UIColor.black.cgColor
-        backgroundView.layer.shadowOffset = CGSize(width: 0, height: 0.5)
-        backgroundView.layer.shadowOpacity = 0.2
-        backgroundView.layer.shadowPath = shadowPath.cgPath
+
+        let layer = backgroundView.layer
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 2, height: 4)
+        layer.shadowRadius = 8
+        layer.shadowOpacity = 0.2
+        layer.shadowPath = UIBezierPath(roundedRect: backgroundView.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.main.scale
         backgroundView.layer.cornerRadius = 10
-        backgroundView.layer.borderColor = UIColor.red.cgColor
-        backgroundView.layer.borderWidth = 2
+//        backgroundView.layer.borderColor = UIColor.red.cgColor
+//        backgroundView.layer.borderWidth = 2
       }
 
       let list3 = ListComponent(direction: .vertical,
@@ -134,7 +137,7 @@ open class CoolComponent: ComponentBase {
                                   background
         ])
 
-      let inset = InsetComponent(insets: UIEdgeInsets(top: 20 , left: 5, bottom: 10, right: 5),
+      let inset = InsetComponent(insets: UIEdgeInsets(top: 20 , left: 10, bottom: 10, right: 10),
                                  component: list3)
 
       return inset

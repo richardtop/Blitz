@@ -79,18 +79,15 @@ open class CollectionViewLayout: UICollectionViewLayout {
   
   override open var collectionViewContentSize: CGSize {
     let bounds = collectionView?.bounds ?? .zero
-
     var size: CGSize!
+
     switch direction {
     case .horizontal:
-      print("horizontal")
       size = CGSize(width: leadingEdgeValue, height: bounds.height)
     case .vertical:
-      print("vertical")
       size = CGSize(width: bounds.width, height: leadingEdgeValue)
     }
 
-    print("Content size \(size)")
     return size
   }
   
