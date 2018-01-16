@@ -39,6 +39,15 @@ open class CollectionViewLayout: UICollectionViewLayout {
         return
       }
 
+      func edge(subnode: Subnode) -> CGFloat {
+        switch direction {
+        case .horizontal:
+          return subnode.origin.x + subnode.node.size.width
+        case .vertical:
+          return subnode.origin.y + subnode.node.size.height
+        }
+      }
+
       for i in 0...dataSource.numberOfItems(in: s) - 1 {
         let indexPath = IndexPath(indexes: [s, i])
         let subnode = dataSource.itemAtIndexPath(indexPath: indexPath)
@@ -70,12 +79,16 @@ open class CollectionViewLayout: UICollectionViewLayout {
   
   override open var collectionViewContentSize: CGSize {
     let bounds = collectionView?.bounds ?? .zero
+    var size: CGSize!
+
     switch direction {
     case .horizontal:
-      return CGSize(width: leadingEdgeValue, height: bounds.height)
+      size = CGSize(width: leadingEdgeValue, height: bounds.height)
     case .vertical:
-      return CGSize(width: bounds.width, height: leadingEdgeValue)
+      size = CGSize(width: bounds.width, height: leadingEdgeValue)
     }
+
+    return size
   }
   
   override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -96,13 +109,6 @@ open class CollectionViewLayout: UICollectionViewLayout {
     
     return false
   }
-  
-  private func edge(subnode: Subnode) -> CGFloat {
-    switch direction {
-    case .horizontal:
-      return subnode.origin.x + subnode.node.size.width
-    case .vertical:
-      return subnode.origin.y + subnode.node.size.height
-    }
-  }
+
+
 }

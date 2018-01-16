@@ -6,30 +6,29 @@ import Blitz
   
   var window: UIWindow?
   
-  var logicControllerHolder: LogicController!
-  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = UIColor.white
     window?.makeKeyAndVisible()
-    
-    
-    let screen = UIScreen.main.bounds
-//    let maxSize = CGSize(width: screen.size.width,
-//                         height: .greatestFiniteMagnitude)
 
-    let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude,
-                         height: screen.size.height)
-    let sizeRange = SizeRange(min: .zero, max: maxSize)
-    let context = ComponentContext(sizeRange: sizeRange, styleSheet: StyleSheet())
-    
-    let logicController = LogicController(context: context,
-                                          componentProvider: SimulationComponentProvider())
-    window?.rootViewController = logicController.viewController
-    logicController.viewController.reloadData()
-    
-    logicControllerHolder = logicController
+    let host = HostController()
+
+
+    var largeAmountofComponents = [Component]()
+
+    for i in 0...100 {
+      largeAmountofComponents.append(CoolComponent(idx: i))
+    }
+
+    let component = CoolComponent()
+    window?.rootViewController = host
+
+
+
+    host.appendNewComponents(components: largeAmountofComponents)
+
+
     
     return true
   }

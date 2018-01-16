@@ -1,7 +1,12 @@
 import UIKit
 import Blitz
 
-public class SimulationComponentProvider: ComponentProvider {
+public enum Result<T> {
+  case Success(T)
+  case error
+}
+
+public class SimulationComponentProvider {
   public func components(offset: Int, count: Int, completion: @escaping (Result<[Component]>) -> Void) {
     SimulationComponentProvider.components(offset: offset, count: count) { (components) in
       completion(Result.Success(components))
@@ -10,7 +15,7 @@ public class SimulationComponentProvider: ComponentProvider {
   
   static func components(offset: Int, count: Int, completion: @escaping ([Component]) -> Void) {
     var components = [Component]()
-    for i in 0...3 {
+    for i in 0...count {
 //      let new = generateCollectionComponent()
 //      let new = generateTextComponent()
       let new = generateCoolComponent()

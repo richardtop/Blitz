@@ -6,11 +6,12 @@ public struct CollectionComponentState {
     case vertical
   }
   public var direction: Direction = .vertical
-  public var backgroundColor: UIColor?
   public var components = [Component]()
-  public var size = CGSize(width: 1000, height: 400)
+  public var preferredSize = CGSize.maxSize
+
+  // Do not store driver here to prevent memory leaks
   public var driver: CollectionDriver = CollectionDriver()
-  public init(components: [Component] = []) {}
+//  public init(components: [Component] = []) {}
 }
 
 open class CollectionComponent: ComponentBase {
@@ -25,42 +26,42 @@ open class CollectionComponent: ComponentBase {
   public init(state: CollectionComponentState) {
     self.state = state
     super.init()
-    self.state.backgroundColor = .random
   }
 
-  public init(components: [Component] = []) {
-    self.state = CollectionComponentState(components: components)
+  public init(direction: CollectionComponentState.Direction = .vertical,
+              interSectionSpace: CGFloat = 0,
+              preferredSize: CGSize = .maxSize,
+              components: [Component] = []) {
+
+    self.state = CollectionComponentState(direction: direction,
+                                          components: components,
+                                          preferredSize: preferredSize,
+                                          driver: CollectionDriver())
     super.init()
-    self.state.backgroundColor = .random
-    state.driver.components = components
+
+
   }
 
   override open func node(for context: ComponentContext) -> Node {
     var node = Node()
 
-
+    // Inject correct infinite width or height depending on scroll direction
     var childContext = context
-    childContext.sizeRange.max.height = state.size.height
+    childContext.sizeRange.max = state.preferredSize
+    state.driver.components = state.components
     state.driver.context = childContext
-    state.driver.reloadDriver()
+
+    // Could there be a better place to reload driver to save perormance?
+    state.driver.update(direction: state.direction)
+
+    let contentsize = state.driver.internalSize()
 
     node.component = self
     node.state = state
-    node.size = state.size.constrained(by: context.sizeRange)
+
+    node.size = contentsize.constrained(by: context.sizeRange)
     node.viewType = CollectionViewCell.self
 
     return node
-  }
-}
-
-extension CGFloat {
-  static var random: CGFloat {
-    return CGFloat(arc4random()) / CGFloat(UInt32.max)
-  }
-}
-
-extension UIColor {
-  static var random: UIColor {
-    return UIColor(red: .random, green: .random, blue: .random, alpha: 1.0)
   }
 }

@@ -14,4 +14,10 @@ open class ViewCell: UICollectionViewCell, NodeUpdatable {
       block(self)
     }
   }
+
+  open override func prepareForReuse() {
+    super.prepareForReuse()
+    backgroundColor = .clear
+    layer.shadowOpacity = 0
+  }
 }

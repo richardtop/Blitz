@@ -12,6 +12,7 @@ import UIKit
    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let subnode = itemAtIndexPath(indexPath: indexPath)
     let viewType = subnode.node.viewType
+
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: viewType!),
                                                   for: indexPath)
     if let cell = cell as? NodeUpdatable {
