@@ -16,11 +16,11 @@ import Blitz
     
     
     let screen = UIScreen.main.bounds
-//    let maxSize = CGSize(width: screen.size.width,
-//                         height: .greatestFiniteMagnitude)
+    let maxSize = CGSize(width: screen.size.width,
+                         height: .greatestFiniteMagnitude)
 
-    let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude,
-                         height: screen.size.height)
+//    let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude,
+//                         height: screen.size.height)
     let sizeRange = SizeRange(min: .zero, max: maxSize)
     let context = ComponentContext(sizeRange: sizeRange, styleSheet: StyleSheet())
     
