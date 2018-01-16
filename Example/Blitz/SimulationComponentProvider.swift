@@ -10,7 +10,7 @@ public class SimulationComponentProvider: ComponentProvider {
   
   static func components(offset: Int, count: Int, completion: @escaping ([Component]) -> Void) {
     var components = [Component]()
-    for i in 0...3 {
+    for i in 0...count {
 //      let new = generateCollectionComponent()
 //      let new = generateTextComponent()
       let new = generateCoolComponent()

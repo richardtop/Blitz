@@ -19,6 +19,7 @@ open class CollectionComponent: ComponentBase {
   public init(direction: CollectionComponentState.Direction = .vertical) {
     var state = CollectionComponentState()
     state.direction = direction
+    state.backgroundColor = .random
     self.state = state
   }
 
@@ -38,15 +39,29 @@ open class CollectionComponent: ComponentBase {
   override open func node(for context: ComponentContext) -> Node {
     var node = Node()
 
-
+    // Inject correct infinite width or height depending on scroll direction
     var childContext = context
-    childContext.sizeRange.max.height = state.size.height
+
+    switch state.direction {
+    case .horizontal:
+      childContext.sizeRange.max.width = .greatestFiniteMagnitude
+      childContext.sizeRange.max.height = state.size.height
+    case .vertical:
+      childContext.sizeRange.max.width = state.size.width
+      childContext.sizeRange.max.height = .greatestFiniteMagnitude
+    }
+
+    state.driver.components = state.components
     state.driver.context = childContext
+
+    // Could there be a better place to reload driver to save perormance?
     state.driver.reloadDriver()
+
+    let contentsize = state.driver.internalSize()
 
     node.component = self
     node.state = state
-    node.size = state.size.constrained(by: context.sizeRange)
+    node.size = contentsize.constrained(by: context.sizeRange)
     node.viewType = CollectionViewCell.self
 
     return node

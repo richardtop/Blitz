@@ -2,6 +2,7 @@ import Foundation
 
 open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDisplayDelegate {
 
+  // Or provider?
   public var components = [Component]()
   public var nodeDataSource = NodeCollectionViewDataSource()
   public var context: ComponentContext!
@@ -14,14 +15,34 @@ open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDispla
 
   }
 
+  var maxDimension: CGFloat = 0
+
   open func reloadDriver() {
     var nodes = [[Subnode]]()
     for component in components {
       component.reloadDelegate = self
+      maxDimension = max(maxDimension, component.node(for: context).size.height)
       let node = self.subnodes(component: component)
       nodes.append(node)
     }
     nodeDataSource.data = nodes
+  }
+  // Experimental
+  func internalSize() -> CGSize {
+    let layout = CollectionViewLayout(direction: .horizontal)
+    layout.dataSource = nodeDataSource
+    layout.prepare()
+
+//    let maxHeight = nodeDataSource.data.flatMap{$0}.map{$0.node.size.height}.max()
+//
+//    return CGSize(width: layout.collectionViewContentSize.width, height: maxHeight ?? 150)
+
+
+    return CGSize(width: layout.collectionViewContentSize.width, height: maxDimension)
+
+
+    
+    return layout.collectionViewContentSize
   }
 
   open func appendNewComponents(components: [Component]) {

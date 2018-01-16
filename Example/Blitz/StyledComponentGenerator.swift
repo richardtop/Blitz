@@ -1,6 +1,20 @@
 import UIKit
 import Blitz
 
+extension String {
+
+  static func random(length: Int = 20) -> String {
+    let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    var randomString: String = ""
+
+    for _ in 0..<length {
+      let randomValue = arc4random_uniform(UInt32(base.count))
+      randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
+    }
+    return randomString
+  }
+}
+
 open class CoolComponent: ComponentBase {
 
   var component: Component!
@@ -22,7 +36,7 @@ open class CoolComponent: ComponentBase {
   override open func didSelectComponents(components: [Component]) {
     component = generateComponent()
     component.parent = self
-//    reloadDelegate?.reload(component: self)
+    //    reloadDelegate?.reload(component: self)
   }
 
   func generateComponent() -> Component {
@@ -33,7 +47,7 @@ open class CoolComponent: ComponentBase {
                                 horizontalAlignment: .left,
                                 verticalAlignment: .top,
                                 interItemSpace: 5,
-                                grow: false,
+                                grow: true,
                                 addComponent: { (add) in
                                   if self.expanded {
                                     for i in 0...2 {
@@ -43,9 +57,33 @@ open class CoolComponent: ComponentBase {
       })
 
       let button = TapableComponent(TextComponent(text: self.expanded ? "Collapse" : "Expand", style: textStyles.title1), { (component) in
-//        self.expanded = !self.expanded
-          self.reloadDelegate?.reload(component: self)
+        //        self.expanded = !self.expanded
+        self.reloadDelegate?.reload(component: self)
       })
+
+
+
+      let embeddedlist = ListComponent(direction: .vertical,
+                                        horizontalAlignment: .left,
+                                        verticalAlignment: .bottom,
+                                        interItemSpace: 5,
+                                        grow: false,
+                                        components: [
+                                          TextComponent(text: "Title1", style: textStyles.title1),
+                                          TextComponent(text: "Title2", style: textStyles.title2),
+                                          TextComponent(text: "Title2", style: textStyles.title2),
+                                          TextComponent(text: "Title2", style: textStyles.title2),
+                                          TextComponent(text: "Title2", style: textStyles.title2),
+        ])
+
+      var embeddedArray = [Component]()
+
+      for i in 0...5 {
+        embeddedArray.append(embeddedlist)
+      }
+
+      let collection = CollectionComponent(direction: .horizontal)
+      collection.state.components = embeddedArray
 
       let list = ListComponent(direction: .vertical,
                                horizontalAlignment: !self.expanded ? .left : .right,
@@ -55,18 +93,19 @@ open class CoolComponent: ComponentBase {
                                components: [
                                 button,
                                 list2,
-                                TextComponent(text: "Title1", style: textStyles.title1),
-                                TextComponent(text: "Title2", style: textStyles.title2),
-                                TextComponent(text: "Title3", style: textStyles.title3),
-                                TextComponent(text: "Headline", style: textStyles.headline),
-                                TextComponent(text: "Body", style: textStyles.body),
-                                TextComponent(text: "Callout", style: textStyles.callout),
-                                TextComponent(text: "Subheadline", style: textStyles.subhead),
-                                TextComponent(text: "Footnote", style: textStyles.footnote),
-                                TextComponent(text: "Caption1", style: textStyles.caption1),
-                                TextComponent(text: "Caption2", style: textStyles.caption2),
+                                TextComponent(text: "Title1" + String.random(length: 10), style: textStyles.title1),
+                                TextComponent(text: "Title2" + String.random(length: 10), style: textStyles.title2),
+                                TextComponent(text: "Title3" + String.random(length: 10), style: textStyles.title3),
+                                TextComponent(text: "Headline + String.random(length: 10)", style: textStyles.headline),
+                                TextComponent(text: "Body" + String.random(length: 10), style: textStyles.body),
+                                TextComponent(text: "Callout" + String.random(length: 10), style: textStyles.callout),
+                                TextComponent(text: "Subheadline" + String.random(length: 10), style: textStyles.subhead),
+                                TextComponent(text: "Footnote" + String.random(length: 10), style: textStyles.footnote),
+                                TextComponent(text: "Caption1" + String.random(length: 10), style: textStyles.caption1),
+                                TextComponent(text: "Caption2" + String.random(length: 10), style: textStyles.caption2),
                                 list2,
-                                ])
+                                collection
+        ])
 
       let listInset = InsetComponent(insets: UIEdgeInsets(top: 20, left: 20, bottom: self.expanded ? 80 : 20, right: 20),
                                      component: list)
@@ -98,7 +137,7 @@ open class CoolComponent: ComponentBase {
       let inset = InsetComponent(insets: UIEdgeInsets(top: 20 , left: 5, bottom: 10, right: 5),
                                  component: list3)
 
-      return inset
+      return collection
     })
     return futureComponent
   }

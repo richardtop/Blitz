@@ -6,7 +6,7 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
   public var driver: CollectionDriver!
 
   public override init(frame: CGRect) {
-    let layout = CollectionViewLayout()
+    let layout = CollectionViewLayout(direction: .horizontal)
     let dataSource = NodeCollectionViewDataSource()
     layout.dataSource = dataSource
 
@@ -38,13 +38,26 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
   open func update(node: Node) {
     if let state = node.state as? CollectionComponentState {
       let driver = state.driver
-      let dataSource = driver.nodeDataSource
-      view.dataSource = dataSource
-      (view.collectionViewLayout as! CollectionViewLayout).dataSource = dataSource
+      attach(driver: driver)
       view.reloadData()
-
       view.backgroundColor = state.backgroundColor
     }
+  }
+
+  func attach(driver: CollectionDriver) {
+    let dataSource = driver.nodeDataSource
+    view.dataSource = dataSource
+    (view.collectionViewLayout as! CollectionViewLayout).dataSource = dataSource
+  }
+
+  func detachDriver() {
+    view.dataSource = nil
+    (view.collectionViewLayout as! CollectionViewLayout).dataSource = nil
+  }
+
+  open override func prepareForReuse() {
+    super.prepareForReuse()
+//    detachDriver()
   }
 
   override open func layoutSubviews() {
