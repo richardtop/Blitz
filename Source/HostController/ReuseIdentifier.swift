@@ -16,14 +16,10 @@ public extension UICollectionView {
   func registerClass(_ cellClass: UICollectionViewCell.Type) {
     register(cellClass, forCellWithReuseIdentifier: cellClass.reuseIdentifier())
   }
-  
+
   func registerClasses(_ classes: [UICollectionViewCell.Type]) {
     classes.forEach{
      registerClass($0)
     }
-  }
-
-  func dequeueCell<T: ReusableCell>(for indexPath: IndexPath) -> T {
-    return self.dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier(), for: indexPath) as! T
   }
 }

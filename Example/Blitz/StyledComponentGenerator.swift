@@ -22,9 +22,9 @@ open class CoolComponent: ComponentBase {
 
   var expanded = false
 
-  override init() {
+  init(idx: Int = -1) {
     super.init()
-    let component = generateComponent()
+    let component = generateComponent(idx: idx)
     component.parent = self
     self.component = component
   }
@@ -39,7 +39,7 @@ open class CoolComponent: ComponentBase {
     //    reloadDelegate?.reload(component: self)
   }
 
-  func generateComponent() -> Component {
+  func generateComponent(idx: Int = -1) -> Component {
     let futureComponent = FutureComponent(builder: { (context) -> Component in
       let textStyles = context.styleSheet.text
 
@@ -130,14 +130,14 @@ open class CoolComponent: ComponentBase {
                                 interItemSpace: 5,
                                 grow: false,
                                 components: [
-                                  InsetComponent(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0), component: TextComponent(text: "Section Header", style: textStyles.title2)),
+                                  InsetComponent(insets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0), component: TextComponent(text: "Section Header + \(idx)", style: textStyles.title2)),
                                   background
         ])
 
       let inset = InsetComponent(insets: UIEdgeInsets(top: 20 , left: 5, bottom: 10, right: 5),
                                  component: list3)
 
-      return collection
+      return inset
     })
     return futureComponent
   }

@@ -1,18 +1,32 @@
 import Foundation
 
-open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDisplayDelegate {
+open class CollectionDriver: ComponentReloadDelegate, CollectionViewCellDisplayDelegate {
 
   // Or provider?
   public var components = [Component]()
-  public var nodeDataSource = NodeCollectionViewDataSource()
+  public var dataSource = NodeCollectionViewDataSource()
   public var context: ComponentContext!
 
-  open func controller(controller: CollectionController, willDisplayItem indexPath: IndexPath) {
+  open func controller(controller: CollectionViewCell, willDisplayItem indexPath: IndexPath) {
 
   }
   
   open func reload(component: Component) {
-
+//    let b = components.index(where: {$0===component})!
+//    let newSubnodes = subnodes(component: component)
+//    let newDataSource = collectionView.dataSource) as! NodeCollectionViewDataSource
+//    newDataSource.setSubnodes(subnodes: newSubnodes, at: b)
+//
+//    let newLayout = CollectionViewLayout()
+//    newLayout.dataSource = newDataSource
+//
+//
+//    nodeDataSource = newDataSource
+//
+//    viewController.collectionView.dataSource = newDataSource
+//
+//
+//    viewController.reloadItems(at: [IndexPath(item: 1, section: 0)], animated: true)
   }
 
   var maxDimension: CGFloat = 0
@@ -34,13 +48,13 @@ open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDispla
       let node = self.subnodes(component: component)
       nodes.append(node)
     }
-    nodeDataSource.data = nodes
+    dataSource.data = nodes
   }
 
-  // Experimental
+  // Experimental, slow performance
   func internalSize() -> CGSize {
-    let layout = CollectionViewLayout(direction: .horizontal)
-    layout.dataSource = nodeDataSource
+    let layout = CollectionViewLayout(direction: direction == .horizontal ? .horizontal : .vertical)
+    layout.dataSource = dataSource
     layout.prepare()
 
     switch direction {
@@ -51,15 +65,31 @@ open class CollectionDriver: ComponentReloadDelegate, CollectionControllerDispla
     }
   }
 
+  open func recalculateLayout() {
+    let nodes = processNew(components: components)
+    self.dataSource.data = nodes
+  }
+
   open func appendNewComponents(components: [Component]) {
+    let nodes = processNew(components: components)
+    self.components.append(contentsOf: components)
+    self.dataSource.append(sections: nodes)
+  }
+
+  open func replace(components: [Component]) {
+    let nodes = processNew(components: components)
+    self.components = components
+    self.dataSource.data = nodes
+  }
+
+  func processNew(components: [Component]) -> [[Subnode]] {
     var nodes = [[Subnode]]()
     for component in components {
       component.reloadDelegate = self
       let node = self.subnodes(component: component)
       nodes.append(node)
     }
-    self.components.append(contentsOf: components)
-    self.nodeDataSource.append(sections: nodes)
+    return nodes
   }
 
   open func subnodes(component: Component) -> [Subnode] {

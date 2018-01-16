@@ -1,7 +1,12 @@
 import UIKit
 import Blitz
 
-public class SimulationComponentProvider: ComponentProvider {
+public enum Result<T> {
+  case Success(T)
+  case error
+}
+
+public class SimulationComponentProvider {
   public func components(offset: Int, count: Int, completion: @escaping (Result<[Component]>) -> Void) {
     SimulationComponentProvider.components(offset: offset, count: count) { (components) in
       completion(Result.Success(components))

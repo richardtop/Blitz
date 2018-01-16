@@ -8,9 +8,10 @@ public struct CollectionComponentState {
   public var direction: Direction = .vertical
   public var components = [Component]()
   public var preferredSize = CGSize.maxSize
+
   // Do not store driver here to prevent memory leaks
   public var driver: CollectionDriver = CollectionDriver()
-  public init(components: [Component] = []) {}
+//  public init(components: [Component] = []) {}
 }
 
 open class CollectionComponent: ComponentBase {
@@ -27,10 +28,18 @@ open class CollectionComponent: ComponentBase {
     super.init()
   }
 
-  public init(components: [Component] = []) {
-    self.state = CollectionComponentState(components: components)
+  public init(direction: CollectionComponentState.Direction = .vertical,
+              interSectionSpace: CGFloat = 0,
+              preferredSize: CGSize = .maxSize,
+              components: [Component] = []) {
+
+    self.state = CollectionComponentState(direction: direction,
+                                          components: components,
+                                          preferredSize: preferredSize,
+                                          driver: CollectionDriver())
     super.init()
-    state.driver.components = components
+
+
   }
 
   override open func node(for context: ComponentContext) -> Node {
