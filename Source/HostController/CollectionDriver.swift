@@ -7,6 +7,8 @@ open class CollectionDriver: ComponentReloadDelegate, CollectionViewCellDisplayD
   public var dataSource = NodeCollectionViewDataSource()
   public var context: ComponentContext!
 
+  public init() {}
+
   open func controller(controller: CollectionViewCell, willDisplayItem indexPath: IndexPath) {
 
   }

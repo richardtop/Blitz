@@ -13,7 +13,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
   
   var dataSource: NodeCollectionViewDataSource!
 
-  init(direction: Direction = .vertical) {
+  public init(direction: Direction = .vertical) {
     self.direction = direction
     super.init()
   }
