@@ -11,7 +11,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
   var cache = [[UICollectionViewLayoutAttributes]]()
   var leadingEdgeValue: CGFloat = 0
   
-  var dataSource: NodeCollectionViewDataSource!
+  public var dataSource: NodeCollectionViewDataSource!
 
   public init(direction: Direction = .vertical) {
     self.direction = direction
