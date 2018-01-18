@@ -42,6 +42,7 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
     collectionView.registerClasses([ImageCell.self,
                                     ViewCell.self,
                                     TextCell.self,
+                                    SearchCell.self,
                                     CollectionViewCell.self])
   }
 
