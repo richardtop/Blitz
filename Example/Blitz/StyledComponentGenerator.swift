@@ -74,7 +74,7 @@ open class CoolComponent: ComponentBase {
                                           TextComponent(text: "Title2", style: textStyles.title2),
                                           TextComponent(text: "Title2", style: textStyles.title2),
                                           TextComponent(text: "Title2", style: textStyles.title2),
-                                          
+
         ])
 
       var embeddedArray = [Component]()
@@ -99,13 +99,15 @@ open class CoolComponent: ComponentBase {
                                 TextComponent(text: "Title2" + String.random(length: 10), style: textStyles.title2),
                                 SeparatorComponent(),
                                 TextComponent(text: "Title3" + String.random(length: 10), style: textStyles.title3),
-//                                TextComponent(text: "Headline + String.random(length: 10)", style: textStyles.headline),
-//                                TextComponent(text: "Body" + String.random(length: 10), style: textStyles.body),
-//                                TextComponent(text: "Callout" + String.random(length: 10), style: textStyles.callout),
-//                                TextComponent(text: "Subheadline" + String.random(length: 10), style: textStyles.subhead),
-//                                TextComponent(text: "Footnote" + String.random(length: 10), style: textStyles.footnote),
-//                                TextComponent(text: "Caption1" + String.random(length: 10), style: textStyles.caption1),
-//                                TextComponent(text: "Caption2" + String.random(length: 10), style: textStyles.caption2),
+                                ProgressComponent(progress: 0.3),
+
+                                TextComponent(text: "Headline + String.random(length: 10)", style: textStyles.headline),
+                                TextComponent(text: "Body" + String.random(length: 10), style: textStyles.body),
+                                TextComponent(text: "Callout" + String.random(length: 10), style: textStyles.callout),
+                                TextComponent(text: "Subheadline" + String.random(length: 10), style: textStyles.subhead),
+                                TextComponent(text: "Footnote" + String.random(length: 10), style: textStyles.footnote),
+                                TextComponent(text: "Caption1" + String.random(length: 10), style: textStyles.caption1),
+                                TextComponent(text: "Caption2" + String.random(length: 10), style: textStyles.caption2),
                                 list2,
                                 collection
         ])

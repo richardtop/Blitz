@@ -43,6 +43,7 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
                                     ViewCell.self,
                                     TextCell.self,
                                     SearchCell.self,
+                                    ProgressCell.self,
                                     CollectionViewCell.self])
   }
 
