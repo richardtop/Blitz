@@ -1,6 +1,8 @@
 import UIKit
 
-public struct StyleSheet {
+public protocol StyleSheetProtocol {}
+
+public struct StyleSheet: StyleSheetProtocol {
   public var text = TextStyleSheet()
   public init() {}
 }

@@ -29,6 +29,7 @@ public class SimulationComponentProvider {
 
   static func generateTextComponent() -> Component {
     return FutureComponent(builder: { (context) -> Component in
+      let styleSheet = context.styleSheet as! StyleSheet
       return ListComponent(direction: .vertical,
                                 horizontalAlignment: .left,
                                 verticalAlignment: .top,
@@ -36,7 +37,7 @@ public class SimulationComponentProvider {
                                 grow: false,
                                 addComponent: { (add) in
                                     for i in 0...2 {
-                                      add(TextComponent(text: "Expanded Part of the text", style: context.styleSheet.text.title1))
+                                      add(TextComponent(text: "Expanded Part of the text", style: styleSheet.text.title1))
                                   }
       })
     })
@@ -48,8 +49,8 @@ public class SimulationComponentProvider {
 
   static func generateCollectionComponent() -> Component {
     let future = FutureComponent { (context) -> Component in
-      let style = context.styleSheet.text
-      let text = TextComponent(text: "Morgan Stanley", style: style.title1)
+      let style = context.styleSheet as! StyleSheet
+      let text = TextComponent(text: "abcdeakjdlaksjdl", style: style.text.title1)
       return CollectionComponent(components: [text, generateCoolComponent()])
     }
     return future

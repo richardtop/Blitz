@@ -41,7 +41,7 @@ open class CoolComponent: ComponentBase {
 
   func generateComponent(idx: Int = -1) -> Component {
     let futureComponent = FutureComponent(builder: { (context) -> Component in
-      let textStyles = context.styleSheet.text
+      let textStyles = (context.styleSheet as! StyleSheet).text
 
       let list2 = ListComponent(direction: .vertical,
                                 horizontalAlignment: .left,
