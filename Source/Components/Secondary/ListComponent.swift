@@ -10,12 +10,14 @@ public struct ListComponentState {
     case left
     case center
     case right
+    case justified
   }
 
   public enum VerticalAlignment {
     case top
     case middle
     case bottom
+    case justified
   }
 
   public var components: [Component]
@@ -160,33 +162,48 @@ open class ListComponent: ComponentBase {
       }
     }
 
-    let dxTotal = nodeSize.width - listSize.width
-    let dyTotal = nodeSize.height - listSize.height
-    
     let hAlign = state.horizontalAlignment
     let vAlign = state.verticalAlignment
-    
+
+    if hAlign == .justified {
+      nodeSize.width = context.sizeRange.max.width
+    }
+
+    if vAlign == .justified {
+      nodeSize.height = context.sizeRange.max.height
+    }
+
+    let dxTotal = nodeSize.width - listSize.width
+    let dyTotal = nodeSize.height - listSize.height
+
     newSubnodes = []
-    
-    for subnode in subnodes {
+
+    let subnodesCount = subnodes.count
+
+    for (idx, subnode) in subnodes.enumerated() {
       var subnode = subnode
       var origin = subnode.origin
       let subnodeSize = subnode.node.size
-      
+
+      func justifiedOffset(totalSpace: CGFloat) -> CGFloat {
+        return (totalSpace / CGFloat(max(subnodesCount - 1, 1)) * CGFloat(idx))
+      }
+
       switch direction {
       case .horizontal:
-        
         switch hAlign {
         case .left: break
         case .center: origin.x += dxTotal/2
         case .right: origin.x += dxTotal
+        case .justified: origin.x += justifiedOffset(totalSpace: dxTotal)
         }
-        
+
         let dy = nodeSize.height - subnodeSize.height
         switch vAlign {
         case .top: break
         case .middle: origin.y += dy/2
         case .bottom: origin.y += dy
+        case .justified: origin.y += dy/2
         }
         
       case .vertical:
@@ -195,12 +212,14 @@ open class ListComponent: ComponentBase {
         case .left: break
         case .center: origin.x += dx/2
         case .right: origin.x += dx
+        case .justified: origin.x += dx/2
         }
         
         switch vAlign {
         case .top: break
         case .middle: origin.y += dyTotal/2
         case .bottom: origin.y += dyTotal
+        case .justified: origin.y += justifiedOffset(totalSpace: dyTotal)
         }
       }
       subnode.origin = origin
