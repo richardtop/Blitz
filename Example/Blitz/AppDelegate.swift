@@ -12,7 +12,8 @@ import Blitz
     window?.backgroundColor = UIColor.white
     window?.makeKeyAndVisible()
 
-    let host = HostController()
+    var host = MCollectionController()
+//    let host = HostController()
 
 
     var largeAmountofComponents = [Component]()
@@ -21,15 +22,12 @@ import Blitz
       largeAmountofComponents.append(CoolComponent(idx: i))
     }
 
-    let component = CoolComponent()
-    window?.rootViewController = host
-
-
 
     host.appendNewComponents(components: largeAmountofComponents)
 
+    let navigation = UINavigationController(rootViewController: host)
 
-    
+    window?.rootViewController = navigation
     return true
   }
  }

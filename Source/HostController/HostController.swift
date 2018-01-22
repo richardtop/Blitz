@@ -57,24 +57,24 @@ open class HostController: UIViewController {
     self.driver.recalculateLayout()
     self.host.collectionView.reloadData()
   }
-
-  open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    super.viewWillTransition(to: size, with: coordinator)
-    DispatchQueue.global(qos: .userInitiated).async {
-
-      let maxSize = CGSize(width: size.width,
-                           height: .greatestFiniteMagnitude)
-      let sizeRange = SizeRange(min: .zero, max: maxSize)
-      self.context = ComponentContext(sizeRange: sizeRange, styleSheet: StyleSheet())
-      self.driver.context = self.context
-      self.driver.recalculateLayout()
-      // TODO: Add "quick reload" algorithm to reload visible items immediately and then proceed with the rest
-      // TODO: Add speculative layout: calculate both H and V layouts and pick one when needed.
-      DispatchQueue.main.async {
-        self.host.collectionView.reloadData()
-        self.host.collectionView.invalidateIntrinsicContentSize()
-        self.host.collectionView.collectionViewLayout.invalidateLayout()
-      }
-    }
-  }
+//
+//  open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//    super.viewWillTransition(to: size, with: coordinator)
+//    DispatchQueue.global(qos: .userInitiated).async {
+//
+//      let maxSize = CGSize(width: size.width,
+//                           height: .greatestFiniteMagnitude)
+//      let sizeRange = SizeRange(min: .zero, max: maxSize)
+//      self.context = ComponentContext(sizeRange: sizeRange, styleSheet: StyleSheet())
+//      self.driver.context = self.context
+//      self.driver.recalculateLayout()
+//      // TODO: Add "quick reload" algorithm to reload visible items immediately and then proceed with the rest
+//      // TODO: Add speculative layout: calculate both H and V layouts and pick one when needed.
+//      DispatchQueue.main.async {
+//        self.host.collectionView.reloadData()
+//        self.host.collectionView.invalidateIntrinsicContentSize()
+//        self.host.collectionView.collectionViewLayout.invalidateLayout()
+//      }
+//    }
+//  }
 }

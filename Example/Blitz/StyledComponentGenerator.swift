@@ -49,7 +49,7 @@ open class CoolComponent: ComponentBase {
                                 interItemSpace: 5,
                                 grow: true,
                                 addComponent: { (add) in
-                                  if self.expanded {
+                                  if false {
                                     for i in 0...2 {
                                       add(TextComponent(text: "Expanded Part of the text", style: textStyles.title1))
                                     }
