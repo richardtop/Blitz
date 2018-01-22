@@ -10,7 +10,7 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
   public var driver: CollectionDriver!
   // This is driver. Need to think of reference cycles and check for memory leaks
   public weak var displayDelegate: CollectionViewCellDisplayDelegate?
-  var dataSource: NodeCollectionViewDataSource? {
+  public var dataSource: NodeCollectionViewDataSource? {
     return collectionView.dataSource as? NodeCollectionViewDataSource
   }
 
@@ -55,13 +55,13 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
     }
   }
 
-  func attach(driver: CollectionDriver) {
+  open func attach(driver: CollectionDriver) {
     let dataSource = driver.dataSource
     collectionView.dataSource = dataSource
     (collectionView.collectionViewLayout as! CollectionViewLayout).dataSource = dataSource
   }
 
-  func detachDriver() {
+  open func detachDriver() {
     collectionView.dataSource = nil
     (collectionView.collectionViewLayout as! CollectionViewLayout).dataSource = nil
   }
@@ -77,11 +77,11 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
   }
 
 
-  public func reloadData() {
+  open func reloadData() {
     collectionView.reloadData()
   }
 
-  public func reloadItems(at indexPaths: [IndexPath], animated: Bool = true) {
+  open func reloadItems(at indexPaths: [IndexPath], animated: Bool = true) {
     if !animated {
       UIView.performWithoutAnimation {
         self.collectionView.reloadItems(at: indexPaths)
@@ -91,7 +91,7 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
     }
   }
 
-  public func reloadSection(sections: IndexSet, animated: Bool = true) {
+  open func reloadSection(sections: IndexSet, animated: Bool = true) {
     if !animated {
       UIView.performWithoutAnimation {
         self.collectionView.reloadSections(sections)
@@ -102,28 +102,28 @@ open class CollectionViewCell: UICollectionViewCell, NodeUpdatable, UICollection
   }
 
   // TODO: Maybe, Driver should use delegate methods instead of view?
-  public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let node = dataSource?.itemAtIndexPath(indexPath: indexPath).node
     node?.component?.didSelectComponents(components: [])
   }
 
 
-  public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+  open func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
     return true
   }
 
-  public func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+  open func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
     return true
   }
 
-  public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+  open func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
     print(indexPath)
   }
 
-  public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+  open func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
   }
 
-  public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+  open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
     displayDelegate?.controller(controller: self, willDisplayItem: indexPath)
   }
 }

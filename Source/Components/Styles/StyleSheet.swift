@@ -8,6 +8,7 @@ public struct StyleSheet: StyleSheetProtocol {
 }
 
 public struct TextStyleSheet {
+  public init() {}
 //  public var largeTytle: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .largeTitle))
   public var title1: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .title1))
   public var title2: TextStyleProtocol = TextStyle().withFont(UIFont.preferredFont(forTextStyle: .title2))
