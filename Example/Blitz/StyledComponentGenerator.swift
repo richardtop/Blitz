@@ -83,8 +83,8 @@ open class CoolComponent: ComponentBase {
         embeddedArray.append(embeddedlist)
       }
 
-      let collection = CollectionComponent(direction: .horizontal)
-      collection.state.components = embeddedArray
+//      let collection = CollectionComponent(direction: .horizontal)
+//      collection.state.components = embeddedArray
 
       let list = ListComponent(direction: .vertical,
                                horizontalAlignment: !self.expanded ? .left : .right,
@@ -109,27 +109,27 @@ open class CoolComponent: ComponentBase {
                                 TextComponent(text: "Caption1" + String.random(length: 10), style: textStyles.caption1),
                                 TextComponent(text: "Caption2" + String.random(length: 10), style: textStyles.caption2),
                                 list2,
-                                collection
+//                                collection
         ])
 
       let listInset = InsetComponent(insets: UIEdgeInsets(top: 10, left: 10, bottom: self.expanded ? 80 : 20, right: 20),
                                      component: list)
 
       let background = BackgroundComponent(component: listInset) { (backgroundView) in
-        backgroundView.backgroundColor = self.color
-
+        backgroundView.backgroundColor = .white
+        backgroundView.clipsToBounds = false
 
         let layer = backgroundView.layer
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 2, height: 4)
         layer.shadowRadius = 8
-        layer.shadowOpacity = 0.2
-        layer.shadowPath = UIBezierPath(roundedRect: backgroundView.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
+        layer.shadowOpacity = 1
+//        layer.shadowPath = UIBezierPath(roundedRect: backgroundView.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
         backgroundView.layer.cornerRadius = 10
-//        backgroundView.layer.borderColor = UIColor.red.cgColor
-//        backgroundView.layer.borderWidth = 2
+        layer.masksToBounds = false
+        backgroundView.isOpaque = true
       }
 
       let list3 = ListComponent(direction: .vertical,
