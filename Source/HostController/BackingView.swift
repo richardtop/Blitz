@@ -42,16 +42,22 @@ class BackingView: UIScrollView {
       let visibleRect = CGRect(origin: contentOffset,
                                size: bounds.size)
 
-      let safeRect = visibleRect.insetBy(dx: -20, dy: -20)
+      let safeRect = visibleRect.insetBy(dx: -200, dy: -200)
       let toRemove = subviews.filter{!$0.frame.intersects(safeRect)}
       pool.enqueue(views: toRemove)
-      let sn = dataSource.subnodes(in: safeRect)
+      let sn = dataSource.subnodes(in: visibleRect)
       displaySubnodes(sn ?? [])
   }
 
   func displaySubnodes(_ subnodes: [Subnode]) {
     for node in subnodes {
       let viewType = node.node.viewType!
+      let uniqueId = node.node.uniqueId
+
+      if let oldView = viewWithTag(uniqueId) {
+        continue
+      }
+
       let subview = pool.dequeue(type: viewType as! UIView.Type)
       if subview.superview == nil {
         addSubview(subview)
@@ -59,6 +65,7 @@ class BackingView: UIScrollView {
       if let v = subview as? NodeUpdatable {
         v.update(node: node.node)
       }
+      subview.tag = uniqueId
       let frame = CGRect(origin: node.origin, size: node.node.size)
       subview.frame = frame
       subview.layer.zPosition = CGFloat(node.node.zIndex)

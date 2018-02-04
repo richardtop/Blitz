@@ -8,6 +8,7 @@ class ReusePool {
   }
 
   func enqueue(view: UIView) {
+    view.tag = 0
     let key = String(describing: type(of: view))
     var array: [UIView]! = storage[key]
     if array == nil {

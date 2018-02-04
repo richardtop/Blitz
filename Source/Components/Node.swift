@@ -11,6 +11,7 @@ public struct Node {
   public var subnodes: [Subnode]
   public var size: CGSize
   public var zIndex: Int = 0
+  public var uniqueId = UUID().hashValue
   public var translatesIntoView: Bool {
     return viewType != nil
   }
